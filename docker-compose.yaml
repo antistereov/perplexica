@@ -6,7 +6,8 @@ services:
     volumes:
       - ./searxng:/etc/searxng:rw
     networks:
-      - default_network
+      default_network:
+        ipv4_address: 10.0.0.20
 
   perplexica-backend:
     container_name: perplexica-backend
@@ -20,7 +21,8 @@ services:
       - searxng
       - server
     networks:
-      - default_network
+      default_network:
+        ipv4_address: 10.0.0.21
 
   perplexica-frontend:
     container_name: perplexica-frontend
@@ -34,7 +36,8 @@ services:
     depends_on:
       - perplexica-backend
     networks:
-      - default_network
+      default_network:
+        ipv4_address: 10.0.0.22
 
   postgresql:
     image: docker.io/library/postgres:16-alpine
@@ -54,7 +57,8 @@ services:
     env_file:
       - .env
     networks:
-      - default_network
+      default_network:
+        ipv4_address: 10.0.0.24
   redis:
     image: docker.io/library/redis:alpine
     command: --save 60 1 --loglevel warning
@@ -68,7 +72,8 @@ services:
     volumes:
       - redis:/data
     networks:
-      - default_network
+      default_network:
+        ipv4_address: 10.0.0.25
   server:
     image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.4.2}
     restart: unless-stopped
@@ -91,7 +96,8 @@ services:
       - postgresql
       - redis
     networks:
-      - default_network
+      default_network:
+        ipv4_address: 10.0.0.26
   worker:
     image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2024.4.2}
     restart: unless-stopped
@@ -120,7 +126,8 @@ services:
       - postgresql
       - redis
     networks:
-      - default_network
+      default_network:
+        ipv4_address: 10.0.0.27
 
 volumes:
   database:
