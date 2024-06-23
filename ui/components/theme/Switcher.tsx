@@ -1,16 +1,12 @@
 'use client';
 import { useTheme } from 'next-themes';
+import { SunIcon, MoonIcon, MonitorIcon } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Select } from '../SettingsDialog';
 
 type Theme = 'dark' | 'light' | 'system';
 
-interface ThemeSwitcherProps {
-  className?: string;
-  size?: number; // Add the size prop here
-}
-
-const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className, size }) => {
+const ThemeSwitcher = ({ className }: { className?: string }) => {
   const [mounted, setMounted] = useState(false);
 
   const { theme, setTheme } = useTheme();
@@ -27,7 +23,9 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className, size }) => {
 
   useEffect(() => {
     if (isTheme('system')) {
-      const preferDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+      const preferDarkScheme = window.matchMedia(
+        '(prefers-color-scheme: dark)',
+      );
 
       const detectThemeChange = (event: MediaQueryListEvent) => {
         const theme: Theme = event.matches ? 'dark' : 'light';
@@ -47,21 +45,17 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className, size }) => {
     return null;
   }
 
-  const selectStyle = size ? { fontSize: size } : {}; // Apply the size to the Select component if provided
-
   return (
-      <Select
-          className={className}
-          style={selectStyle} // Pass the style here
-          value={theme}
-          onChange={(e) => handleThemeSwitch(e.target.value as Theme)}
-          options={[
-            { value: 'light', label: 'Light' },
-            { value: 'dark', label: 'Dark' }
-          ]}
-      />
+    <Select
+      className={className}
+      value={theme}
+      onChange={(e) => handleThemeSwitch(e.target.value as Theme)}
+      options={[
+        { value: 'light', label: 'Light' },
+        { value: 'dark', label: 'Dark' },
+      ]}
+    />
   );
 };
-
 
 export default ThemeSwitcher;
