@@ -85,11 +85,12 @@ There are mainly 2 ways of installing Perplexica - With Docker, Without Docker. 
 
 ### Non-Docker Installation
 
-1. Clone the repository and rename the `sample.config.toml` file to `config.toml` in the root directory. Ensure you complete all required fields in this file.
-2. Rename the `.env.example` file to `.env` in the `ui` folder and fill in all necessary fields.
-3. After populating the configuration and environment files, run `npm i` in both the `ui` folder and the root directory.
-4. Install the dependencies and then execute `npm run build` in both the `ui` folder and the root directory.
-5. Finally, start both the frontend and the backend by running `npm run start` in both the `ui` folder and the root directory.
+1. Install SearXNG and allow `JSON` format in the SearXNG settings.
+2. Clone the repository and rename the `sample.config.toml` file to `config.toml` in the root directory. Ensure you complete all required fields in this file.
+3. Rename the `.env.example` file to `.env` in the `ui` folder and fill in all necessary fields.
+4. After populating the configuration and environment files, run `npm i` in both the `ui` folder and the root directory.
+5. Install the dependencies and then execute `npm run build` in both the `ui` folder and the root directory.
+6. Finally, start both the frontend and the backend by running `npm run start` in both the `ui` folder and the root directory.
 
 **Note**: Using Docker is recommended as it simplifies the setup process, especially for managing environment variables and dependencies.
 
@@ -101,6 +102,7 @@ If you're encountering an Ollama connection error, it is likely due to the backe
 
 1. **Check your Ollama API URL:** Ensure that the API URL is correctly set in the settings menu.
 2. **Update API URL Based on OS:**
+
    - **Windows:** Use `http://host.docker.internal:11434`
    - **Mac:** Use `http://host.docker.internal:11434`
    - **Linux:** Use `http://<private_ip_of_host>:11434`
@@ -108,11 +110,8 @@ If you're encountering an Ollama connection error, it is likely due to the backe
    Adjust the port number if you're using a different one.
 
 3. **Linux Users - Expose Ollama to Network:**
-   - Serve Ollama over your network with the command:
 
-     ```bash
-     OLLAMA_HOST=0.0.0.0 ollama serve
-     ```
+   - Inside `/etc/systemd/system/ollama.service`, you need to add `Environment="OLLAMA_HOST=0.0.0.0"`. Then restart Ollama by `systemctl restart ollama`. For more information see [Ollama docs](https://github.com/ollama/ollama/blob/main/docs/faq.md#setting-environment-variables-on-linux)
 
    - Ensure that the port (default is 11434) is not blocked by your firewall.
 
@@ -209,11 +208,12 @@ location @goauthentik_proxy_signin {
 
 ## Upcoming Features
 
-- [ ] Finalizing Copilot Mode
 - [x] Add settings page
 - [x] Adding support for local LLMs
-- [ ] Adding Discover and History Saving features
+- [x] History Saving features
 - [x] Introducing various Focus Modes
+- [ ] Finalizing Copilot Mode
+- [ ] Adding Discover
 
 ## Support Us
 
@@ -221,11 +221,11 @@ If you find Perplexica useful, consider giving us a star on GitHub. This helps m
 
 ### Donations
 
-We also accept donations to help sustain our project. If you would like to contribute, you can use the following button to make a donation in cryptocurrency. Thank you for your support!
+We also accept donations to help sustain our project. If you would like to contribute, you can use the following options to donate. Thank you for your support!
 
-<a href="https://nowpayments.io/donation?api_key=RFFKJH1-GRR4DQG-HFV1DZP-00G6MMK&source=lk_donation&medium=referral" target="_blank">
-  <img src="https://nowpayments.io/images/embeds/donation-button-white.svg" alt="Crypto donation button by NOWPayments">
-</a>
+| Cards  | Ethereum |
+|---|---|
+|  https://www.patreon.com/itzcrazykns  | Address: `0xB025a84b2F269570Eb8D4b05DEdaA41D8525B6DD`  |
 
 ## Contribution
 

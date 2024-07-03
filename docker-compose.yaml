@@ -19,6 +19,12 @@ services:
         - SEARXNG_API_URL=http://searxng:8080
     depends_on:
       - searxng
+    ports:
+      - 3001:3001
+    volumes:
+      - backend-dbstore:/home/perplexica/data
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
     networks:
       default_network:
         ipv4_address: 10.0.0.21
@@ -41,4 +47,9 @@ services:
 networks:
   default_network:
     external: true
+
+  perplexica-network:
+
+volumes:
+  backend-dbstore:
 
